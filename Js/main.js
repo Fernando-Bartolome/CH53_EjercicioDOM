@@ -13,9 +13,14 @@ let lista = document.getElementsByTagName("ul");
 
 let elementos = document.getElementsByClassName("list-group-item");
 
-let otroElemento = document.querySelector("ul>li")
+let otroElemento = document.querySelector("ul>li");
 
-let otrosElementos = document.querySelectorAll("ul>li")
+let otrosElementos = document.querySelectorAll("ul>li");
+
+let txtRFC = document.getElementById("txtRFC");
+let txtTelefono = document.getElementById("txtTelefono");
+let txtCURP = document.getElementById("txtCURP");
+
 console.log(otrosElementos.length);
 console.log("otroElemento: ", otroElemento);
 
@@ -43,11 +48,53 @@ btnMostrar.addEventListener("click", function(event){
     element.classList.add("list-group-item");
 
     let element2 = element.cloneNode(true);
+    // before Inserta el elemento antes de la lista
+    // // lista.item(0).before(element);
+    //Prepend Inserta el elemento al principio de la lista 
+    // // lista.item(0).prepend(element2);
+    //append Inserta el elemento al final de la lista 
+    // lista.item(0).append(element);
+    //after Inserta el el elmento despues de la lista 
+    // lista.item(0).after(element2);
+    // afterbegin Inserta ele elemento al principio de las listas 
+    // lista.item(1).insertAdjacentElement("afterbegin", element);
+    //beforeend Inserta el elemento al final de la lista 
+    // lista.item(1).insertAdjacentElement("beforeend", element2);
 
-    // lista.item(0).before(element);
-    // lista.item(0).prepend(element2);
-    lista.item(0).append(element);
-    lista.item(0).after(element2);
-
+    lista.item(1).insertAdjacentHTML("beforebegin", `<li class="list-group-item">Before being item</li>`);
+    lista.item(1).insertAdjacentHTML("afterend", `<li class="list-group-item">After End item</li>`);
+    lista.item(1).insertAdjacentHTML("afterend", `<li class="list-group-item">After End item</li>`);
+    lista.item(1).insertAdjacentHTML("beforebegin", `<li class="list-group-item">Before being item</li>`);
 
 });
+
+//Se ejecuta cuando termina de cargar todos los elementos de la pagina 
+window.addEventListener("load", function(event){
+    console.log("Se termino de cargar la pagina");
+});//load
+ function txtToUpper(event){
+    event.preventDefault();
+    event.target.value = event.target.value.trim().toUpperCase();
+ }
+
+//Blur -> cuadno se sale del campo txtRFC
+
+// txtRFC.addEventListener("blur", function(event){
+//     // event.preventDefault();
+//     // txtRFC.value = txtRFC.value.toUpperCase();
+// });//RFC
+
+// txtCURP.addEventListener("blur", function(event){
+//     event.preventDefault();
+//     txtCURP.value = txtCURP.value.toUpperCase();
+// });//RFC
+//Automatizado ->
+txtRFC.addEventListener("blur", txtToUpper);//txtRFC
+txtCURP.addEventListener("blur", txtToUpper);//txtCURP
+
+txtTelefono.addEventListener("blur", function(event){
+    event.preventDefault();
+
+    txtTelefono.value = txtTelefono.value.trim().slice(0,10);
+
+});//txtTelefono
